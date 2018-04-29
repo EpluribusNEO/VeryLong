@@ -11,11 +11,21 @@ using verylong = Form_VeryLong.CVeryLong;
 
 namespace Form_VeryLong
 {
+    //Copy to buffer  -- While not working with decimals) --Пока не работает с десятичными дробями)
+    delegate void btnEvent(object sender, EventArgs e);
     public partial class MainForm : Form
     {
         public MainForm()
         {
             InitializeComponent();
+            btnEvent btnCopy = (sender, e) => {
+                if(textBox_Result.Text != String.Empty){
+                    Clipboard.Clear();
+                    Clipboard.SetText(textBox_Result.Text);
+                }
+
+            };
+            btn_Copy.Click += new System.EventHandler(btnCopy);
         }
 
         private void btn_Sum_Click(object sender, EventArgs e)
@@ -30,16 +40,7 @@ namespace Form_VeryLong
             verylong a = new verylong(first);
             verylong b = new verylong(second);
             verylong sum = a + b;
-
-            /* StringBuilder love = new StringBuilder();
-             for (int i = 0; i < sum.Vlen; i++)
-             {
-                 love.Append(sum.Vlstr[i]);
-             }
-             MessageBox.Show(love.ToString(), love.ToString());  */
-            MessageBox.Show(sum.ReturnVeryLongLikeStr(), sum.ReturnVeryLongLikeStr());
             textBox_Result.Text = sum.ReturnVeryLongLikeStr();
-            //btn_Sum.Text = sum.ReturnVeryLongLikeStr();//sum.Vlen.ToString();     ReturnVeryLongLikeStr()
         }
 
         private void btn_Mult_Click(object sender, EventArgs e)
@@ -55,7 +56,6 @@ namespace Form_VeryLong
             verylong sec = new verylong(s);
             verylong mult = fir * sec;
 
-            MessageBox.Show(mult.ReturnVeryLongLikeStr(), mult.ReturnVeryLongLikeStr());
             textBox_Result.Text = mult.ReturnVeryLongLikeStr(); 
         }
 
