@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Form_VeryLong
-{
+{     //VeryLong
     class CVeryLong
     {
         private static uint size = 1000;   //максимальное число разрядов
@@ -22,7 +22,7 @@ namespace Form_VeryLong
             private set { vlen = value; }
         }
        
-        private char[] vlstr;/* = new char[_size]; */ //число как строка
+        private char[] vlstr;//число как строка
         public char[] Vlstr
         {
             get { return vlstr; }
@@ -41,7 +41,6 @@ namespace Form_VeryLong
             vlstr = new char[size];
             vlen = s.Length;
             Array.Copy(s, vlstr, s.Length); //Array.Copy(Источник, Куда, Длина)
-           // vlstr[vlen + 1] = '\0';
         }
 
         public CVeryLong(ulong num)
@@ -72,13 +71,6 @@ namespace Form_VeryLong
             return vlstr;
         }
 
-        /*public void SetVaryLong(char[] c)
-        {
-            Array.Copy(c, vlstr, c.Length);
-            Array.Reverse(vlstr);
-            vlen = (uint)c.Length;
-        } */
-
         public static CVeryLong operator +(CVeryLong l, CVeryLong d)  //Дисторшн операции "+" для класса
         {
             char[] temp = new char[size];
@@ -102,17 +94,17 @@ namespace Form_VeryLong
                     carry = 0;
                 char ch = (char)digitsum;
                 ch += '0';
-                temp[j] = ch;// (char)digitsum;// + '0';
+                temp[j] = ch;
             }
                 if (carry == 1)
                     temp[j++] = '1';
-                temp[j] = '\0';//temp[maxlen] = '\0';
+                temp[j] = '\0';
 
             char[] tt = new char[j];
             Array.Copy(temp, tt, j); 
 
             CVeryLong vl = new CVeryLong(tt);
-            return vl;//new CVeryLong(temp);
+            return vl;
         }
 
         public static CVeryLong operator *(CVeryLong l, CVeryLong d) //Дисторшн операции "*" для класса
@@ -147,14 +139,12 @@ namespace Form_VeryLong
                 }
                 else
                     carry = 0;
-                //temp[j] = digitprod + '0';
                 char ch = (char)digitprod;
                 ch += '0';
                 temp[j] = ch;
             }
             if (carry != 0)
             {
-                //temp[j++] = carry + '0';
                 char c = (char)carry;
                 c += '0';
                 temp[j++] = c;
